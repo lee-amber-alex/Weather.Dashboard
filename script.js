@@ -58,3 +58,25 @@ function convertKtoF(tempInKelvin) {
 // let cityName = $("<div>");
 // let p = $("<p>").text(results[i].temperature);
 // let weatherCondition = $("<img>");
+
+
+// Enter city and click search
+// City weather populates below
+  // City Name
+  // Temp
+  // Humidity
+  // Wind
+  // UV
+  // Icon for weather conditions
+  // Color that indicates good or bad
+  // 5 day forecast populates below
+        // / City Name
+        // Temp
+        // Humidity
+        // Wind
+        // UV
+        // Icon for weather conditions
+        // Color that indicates good or bad
+// Enter additional city and click search
+// Previous city button populates a the top above City name
+// Click on button and previous information displayed
