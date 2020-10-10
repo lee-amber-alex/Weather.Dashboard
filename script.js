@@ -3,6 +3,8 @@ let cityNameEl= $("#cityName");
 let tempEl= $("#temp");
 let humidityEl= $("#humidity");
 let uvEl= $("#UV");
+
+let windEl = $("#wind");
 let searchCityEl = $("#searchCity");
 let citySearchEl = $("#citySearch");
 let timeNow = moment().format("lll");
@@ -35,10 +37,19 @@ $.ajax({
     method: "GET"
   }).then(function(response) {
     
-const results = response.data;
+const results = response;
 console.log(response);
+cityNameEl.text(response.name);
+tempEl.html("Temperature: " + convertKtoF(parseFloat( response.main.temp)) + "&deg;F");
+humidityEl.text("Humidity: " + response.main.humidity + "%");
+windEl.text("Windspeed: " + response.wind.speed + "m/s");
+// uvEl.text(response.uv)   NEED TO FIND THIS INFORMATION;
 
 });
+function convertKtoF(tempInKelvin) {
+  // (360K − 273.15) × 9/5 + 32 = 188.33°F
+  return ((tempInKelvin - 273.15) * 9) / 5 + 32;
+};
 
 });
 
