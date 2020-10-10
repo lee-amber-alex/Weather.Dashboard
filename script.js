@@ -7,18 +7,23 @@ let searchCityEl = $("#searchCity");
 let citySearchEl = $("#citySearch");
 let timeNow = moment().format("lll");
 
-
 dateEl.append(timeNow);
 
 function buildQueryURL(){
+
+
 let apiKeyEl = "&appid=0c4095be8ee8948edd8333313900b9cb";
 let queryParams= $("#citySearch").val().trim();
 let queryURL = "https://api.openweathermap.org/data/2.5/weather?q=" + queryParams + apiKeyEl;
-return queryURL; 
 
+
+console.log("This is where user writes input", $("#citySearch"))
+console.log("this is query url", queryURL);
+console.log("query user input", queryParams);
+
+return queryURL; 
 };
-console.log(queryURL);
-console.log(queryParams);
+
 
 $("#searchCity").on("click", function(event){
 event.preventDefault();
