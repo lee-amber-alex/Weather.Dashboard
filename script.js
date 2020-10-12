@@ -81,20 +81,24 @@ $("#searchCity").on("click", function initialSearch(event) {
     return (Math.floor(tempInKelvin - 273.15) * 9) / 5 + 32;
   }
 
-//   let queryURL5 = buildQueryURL5();
-//   let fiveDay = $.ajax({
-//     url: queryURL5,
-//     method: "GET",
-//   }).then(function (response) {
-//     let fiveDayrep = response;
-//     console.log(fiveDayrep);
-//     localStorage.setItem("fiveDay", fiveDay);
-//   });
-// });
+  let queryURL5 = buildQueryURL5();
+  let fiveDay = $.ajax({
+    url: queryURL5,
+    method: "GET",
+  }).then(function (response) {
+    let fiveDayrep = response;
+    console.log(fiveDayrep);
+    localStorage.setItem("fiveDay", fiveDay);
+  });
+});
 
-$(document).on("click", ".saved-search", weatherHistory);
+
+$(document).on("click", "#saved-search", initialSearch);
 buildQueryURL();
 
+// function renderButtons() {
+//   $("#buttons-view").empty();
+// }
 // let savedWeather = JSON.parse(localStorage.getItem(weatherHistory))
 
 // Enter city and click search
