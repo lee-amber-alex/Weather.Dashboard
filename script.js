@@ -76,6 +76,7 @@ $("#searchCity").on("click", function (event) {
     for (let i = 0; i < fiveDayrep.list.length; i++) {
       if (i % 8 === 0) {
         let tRow = $("<tr>");
+        fiveDayDate = $("<td>" + fiveDayrep.list[i].dt + "<td>");
         fiveDayTemp = $(
           "<td>" +
             convertKtoF(parseFloat(fiveDayrep.list[i].main.temp)) +
@@ -89,13 +90,15 @@ $("#searchCity").on("click", function (event) {
           "<td>" + fiveDayrep.list[i].wind.speed + "m/s" + "<td>"
         );
         tRow.append(
-          fiveDayTemp,
-          fiveDayHum,
-          fiveDayWind,
+          fiveDaytempTiDay ,
           fiveDaytempTiTemp,
           fiveDaytempTHum,
           fiveDaytempTWind,
-          fiveDaytempTUV
+          fiveDaytempTUV,
+          fiveDayDate ,
+          fiveDayTemp,
+          fiveDayHum,
+          fiveDayWind
         );
         $("tbody").append(tRow);
       }
