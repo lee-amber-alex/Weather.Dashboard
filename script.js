@@ -19,7 +19,7 @@ function buildQueryURL() {
   a.addClass("saved-search");
   a.text(queryParams);
   $("#saved-search").append(a);
-  
+
   let queryURL =
     "https://api.openweathermap.org/data/2.5/weather?q=" +
     queryParams +
@@ -54,8 +54,8 @@ $("#searchCity").on("click", function (event) {
     );
     humidityEl.text("Humidity: " + results.main.humidity + "%");
     windEl.text("Windspeed: " + results.wind.speed + "m/s");
-// UV function here__________
- 
+    // UV function here__________
+
     localStorage.setItem("weatherHistory", weatherHistory);
   });
   function convertKtoF(tempInKelvin) {
@@ -68,32 +68,40 @@ $("#searchCity").on("click", function (event) {
     method: "GET",
   }).then(function (response) {
     let fiveDayrep = response;
-    for (let i = 0; i < fiveDayrep.list[i]; i ++) {
-      if(i%8 === 0){
-      
-      let tRow = $("<tr>");
-      fiveDaytempTiTemp = $("<th>" + "Temperature" + "<th>");
-      fiveDaytempTHum = $("<th>" + "Humidity" + "<th>");
-      fiveDaytempTWind = $("<th>" + "Windspeed" + "<th>");
-      fiveDaytempTUV = $("<th>" + "UV" + "<th>");
-      fiveDayTemp = $("<td>" + fiveDayrep.list[i].main.temp + "<td>");
-      fiveDayHum = $("<td>" + fiveDayrep.list[i].main.humidity + "<td>");
-      fiveDayWind = $("<td>" + fiveDayrep.list[i].wind.speed + "<td>");
-      tRow.append(
-        fiveDaytempTiTemp,
-        fiveDaytempTHum,
-        fiveDaytempTWind,
-        fiveDaytempTUV,
-        fiveDayTemp,
-        fiveDayHum,
-        fiveDayWind
-      );
-      $("tbody").append(tRow);
-    };
-  };
+    fiveDaytempTiDay = $("<th>" + "Date" + "<th>");
+    fiveDaytempTiTemp = $("<th>" + "Temperature" + "<th>");
+    fiveDaytempTHum = $("<th>" + "Humidity" + "<th>");
+    fiveDaytempTWind = $("<th>" + "Windspeed" + "<th>");
+    fiveDaytempTUV = $("<th>" + "UV" + "<th>");
+    for (let i = 0; i < fiveDayrep.list.length; i++) {
+      if (i % 8 === 0) {
+        let tRow = $("<tr>");
+        fiveDayTemp = $(
+          "<td>" +
+            convertKtoF(parseFloat(fiveDayrep.list[i].main.temp)) +
+            "&deg;F" +
+            "<td>"
+        );
+        fiveDayHum = $(
+          "<td>" + fiveDayrep.list[i].main.humidity + "%" + "<td>"
+        );
+        fiveDayWind = $(
+          "<td>" + fiveDayrep.list[i].wind.speed + "m/s" + "<td>"
+        );
+        tRow.append(
+          fiveDayTemp,
+          fiveDayHum,
+          fiveDayWind,
+          fiveDaytempTiTemp,
+          fiveDaytempTHum,
+          fiveDaytempTWind,
+          fiveDaytempTUV
+        );
+        $("tbody").append(tRow);
+      }
+    }
     console.log(fiveDayrep.list[0].main.temp);
     console.log(fiveDayrep);
-    
 
     localStorage.setItem("fiveDay", fiveDay);
   });
@@ -107,25 +115,25 @@ $("#searchCity").on("click", function (event) {
 // }
 // let savedWeather = JSON.parse(localStorage.getItem(weatherHistory))
 
-   // uvEl.text(response.uv)   NEED TO FIND THIS INFORMATION;
-    // let latEl = results.coord.lat;
-    // let lonEl = results.coord.lon;
-    // console.log(results.coord.lat);
+// uvEl.text(response.uv)   NEED TO FIND THIS INFORMATION;
+// let latEl = results.coord.lat;
+// let lonEl = results.coord.lon;
+// console.log(results.coord.lat);
 // let apiKeyEl = "&appid=0c4095be8ee8948edd8333313900b9cb";
-    // let queryURLuv =
-    //   "http://api.openweathermap.org/data/2.5/uvi?lat=" +
-    //   latEl +
-    //   "&lon=" +
-    //   lonEl +
-    //   "&appid=" +
-    //   apiKeyEl;
-    // $.ajax({
-    //   url: queryURLuv,
-    //   method: "GET",
-    // }).then(function (responseUV) {
-    //   console.log(responseUV);
-    //   uvEl.text(responseUV.name);
-    // });
+// let queryURLuv =
+//   "http://api.openweathermap.org/data/2.5/uvi?lat=" +
+//   latEl +
+//   "&lon=" +
+//   lonEl +
+//   "&appid=" +
+//   apiKeyEl;
+// $.ajax({
+//   url: queryURLuv,
+//   method: "GET",
+// }).then(function (responseUV) {
+//   console.log(responseUV);
+//   uvEl.text(responseUV.name);
+// });
 
 // Enter city and click search
 // City weather populates below
