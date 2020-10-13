@@ -15,6 +15,9 @@ dateEl.append(timeNow);
 function buildQueryURL() {
   let apiKeyEl = "&appid=0c4095be8ee8948edd8333313900b9cb";
   let queryParams = $("#citySearch").val().trim();
+  if (queryParams === ""){
+    return buildQueryURL();
+  };
   let a = $("<button>");
   a.addClass("saved-search");
   a.text(queryParams);
@@ -25,25 +28,28 @@ function buildQueryURL() {
     queryParams +
     apiKeyEl;
   return queryURL;
-}
+};
 function buildQueryURL5() {
+  // $("table").empty();
   let apiKeyEl = "&appid=0c4095be8ee8948edd8333313900b9cb";
   let queryParams = $("#citySearch").val().trim();
-
+  
   let queryURL5 =
     "https://api.openweathermap.org/data/2.5/forecast?q=" +
     queryParams +
     apiKeyEl;
   return queryURL5;
-}
+};
 $("#searchCity").on("click", function (event) {
   event.preventDefault();
   let queryURL = buildQueryURL();
+  
 
   let weatherHistory = $.ajax({
     url: queryURL,
     method: "GET",
   }).then(function (response) {
+    
     const results = response;
     console.log(results);
 
@@ -63,19 +69,19 @@ $("#searchCity").on("click", function (event) {
   }
 
   let queryURL5 = buildQueryURL5();
+  
   let fiveDay = $.ajax({
     url: queryURL5,
     method: "GET",
   }).then(function (response) {
     let fiveDayrep = response;
-
-
+    
     fiveDaytempTiDay = $("<th>" + "Date" + "<th>");
     fiveDaytempTiTemp = $("<th>" + "Temperature" + "<th>");
     fiveDaytempTHum = $("<th>" + "Humidity" + "<th>");
     fiveDaytempTWind = $("<th>" + "Windspeed" + "<th>");
     fiveDaytempTUV = $("<th>" + "UV" + "<th>");
-    
+
     $("tbody").append(
       fiveDaytempTiDay,
       fiveDaytempTiTemp,
@@ -84,7 +90,9 @@ $("#searchCity").on("click", function (event) {
       fiveDaytempTUV
     );
     for (let i = 0; i < fiveDayrep.list.length; i++) {
+      
       if (i % 8 === 0) {
+        
         let tRow = $("<tr>");
         fiveDayDate = $("<td>" + fiveDayrep.list[i].dt + "<td>");
         fiveDayTemp = $(
@@ -101,7 +109,6 @@ $("#searchCity").on("click", function (event) {
         );
         tRow.append(fiveDayDate, fiveDayTemp, fiveDayHum, fiveDayWind);
         $("tbody").append(tRow);
-        
       }
     }
     console.log(fiveDayrep.list[0].main.temp);
