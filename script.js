@@ -68,7 +68,9 @@ $("#searchCity").on("click", function (event) {
     method: "GET",
   }).then(function (response) {
     let fiveDayrep = response;
-    for (let i = 0; i < fiveDayrep.list[i]; i + 8) {
+    for (let i = 0; i < fiveDayrep.list[i]; i ++) {
+      if(i%8 === 0){
+      
       let tRow = $("<tr>");
       fiveDaytempTiTemp = $("<th>" + "Temperature" + "<th>");
       fiveDaytempTHum = $("<th>" + "Humidity" + "<th>");
@@ -88,7 +90,7 @@ $("#searchCity").on("click", function (event) {
       );
       $("tbody").append(tRow);
     };
-
+  };
     console.log(fiveDayrep.list[0].main.temp);
     console.log(fiveDayrep);
     
