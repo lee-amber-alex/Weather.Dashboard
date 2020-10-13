@@ -68,11 +68,21 @@ $("#searchCity").on("click", function (event) {
     method: "GET",
   }).then(function (response) {
     let fiveDayrep = response;
+
+
     fiveDaytempTiDay = $("<th>" + "Date" + "<th>");
     fiveDaytempTiTemp = $("<th>" + "Temperature" + "<th>");
     fiveDaytempTHum = $("<th>" + "Humidity" + "<th>");
     fiveDaytempTWind = $("<th>" + "Windspeed" + "<th>");
     fiveDaytempTUV = $("<th>" + "UV" + "<th>");
+    
+    $("tbody").append(
+      fiveDaytempTiDay,
+      fiveDaytempTiTemp,
+      fiveDaytempTHum,
+      fiveDaytempTWind,
+      fiveDaytempTUV
+    );
     for (let i = 0; i < fiveDayrep.list.length; i++) {
       if (i % 8 === 0) {
         let tRow = $("<tr>");
@@ -89,18 +99,9 @@ $("#searchCity").on("click", function (event) {
         fiveDayWind = $(
           "<td>" + fiveDayrep.list[i].wind.speed + "m/s" + "<td>"
         );
-        tRow.append(
-          fiveDaytempTiDay ,
-          fiveDaytempTiTemp,
-          fiveDaytempTHum,
-          fiveDaytempTWind,
-          fiveDaytempTUV,
-          fiveDayDate ,
-          fiveDayTemp,
-          fiveDayHum,
-          fiveDayWind
-        );
+        tRow.append(fiveDayDate, fiveDayTemp, fiveDayHum, fiveDayWind);
         $("tbody").append(tRow);
+        
       }
     }
     console.log(fiveDayrep.list[0].main.temp);
