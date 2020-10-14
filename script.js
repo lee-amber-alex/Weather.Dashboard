@@ -8,9 +8,8 @@ $(document).ready(function () {
   let weatherBlockEl = $("#weatherBlock");
   let windEl = $("#wind");
   let searchCityEl = $("#searchCity");
-  let citySearchEl = $("#citySearch");
+  
   let timeNow = moment().format("lll");
-  let goodWeather = "http://gph.is/2c9knpp";
   let weatherHistory = JSON.parse(localStorage.getItem("weatherHistory")) || [];
 
   function renderSavedbuttons() {
@@ -43,7 +42,7 @@ $(document).ready(function () {
     return queryURL;
   }
   function buildQueryURL5(queryParams) {
-    // $("table").empty();
+    
     let apiKeyEl = "&appid=0c4095be8ee8948edd8333313900b9cb";
 
     let queryURL5 =
@@ -61,27 +60,46 @@ $(document).ready(function () {
     }).then(function (response) {
       const results = response;
       console.log(results);
+      let latEl = results.coord.lat;
+      let lonEl = results.coord.lon;
+      let apiKeyEl = "0c4095be8ee8948edd8333313900b9cb"
+      let queryURLuv =
+  "http://api.openweathermap.org/data/2.5/uvi?lat=" +
+  latEl +
+  "&lon=" +
+  lonEl +
+  "&appid=" +
+  apiKeyEl;
+      console.log(latEl, lonEl);
+      console.log(queryURLuv);
 
       cityNameEl.text(results.name);
 
       tempEl.html(
-        "Temperature: " + convertKtoF(parseFloat(results.main.temp)) + "&deg;F"
+        " Temperature: " + convertKtoF(parseFloat(results.main.temp)) + "&deg;F"
       );
-      humidityEl.text("Humidity: " + results.main.humidity + "%");
-      windEl.text("Windspeed: " + results.wind.speed + "m/s");
+      humidityEl.text(" Humidity: " + results.main.humidity + "%");
+      windEl.text(" Windspeed: " + results.wind.speed + "m/s");
       // UV function here__________
 
-      console.log(iconEl.val(results.weather[0]));
-
-      // localStorage.setItem("weatherHistory", weatherHistory);
+      $.ajax({
+        url: queryURLuv,
+        method: "GET",
+      }).then(function (responseUV) {
+        console.log(responseUV);
+        uvEl.text(" UV Index: " + responseUV.value);
+      });
+      console.log(uvEl);
+      
     });
     function convertKtoF(tempInKelvin) {
       return (Math.floor(tempInKelvin - 273.15) * 9) / 5 + 32;
-    }
+    };
+
 
     let queryURL5 = buildQueryURL5(queryParams);
 
-    let fiveDay = $.ajax({
+    $.ajax({
       url: queryURL5,
       method: "GET",
     }).then(function (response) {
@@ -120,10 +138,8 @@ $(document).ready(function () {
           $("tbody").append(tRow);
         }
       }
-      console.log(fiveDayrep.list[0].main.temp);
-      console.log(fiveDayrep);
 
-      localStorage.setItem("fiveDay", fiveDay);
+      
     });
   };
   $("#searchCity").on("click", function (event) {
@@ -144,25 +160,7 @@ $(document).ready(function () {
 });
 
 
-// uvEl.text(response.uv)   NEED TO FIND THIS INFORMATION;
-// let latEl = results.coord.lat;
-// let lonEl = results.coord.lon;
-// console.log(results.coord.lat);
-// let apiKeyEl = "&appid=0c4095be8ee8948edd8333313900b9cb";
-// let queryURLuv =
-//   "http://api.openweathermap.org/data/2.5/uvi?lat=" +
-//   latEl +
-//   "&lon=" +
-//   lonEl +
-//   "&appid=" +
-//   apiKeyEl;
-// $.ajax({
-//   url: queryURLuv,
-//   method: "GET",
-// }).then(function (responseUV) {
-//   console.log(responseUV);
-//   uvEl.text(responseUV.name);
-// });
+
 
 // Enter city and click search
 // City weather populates below
