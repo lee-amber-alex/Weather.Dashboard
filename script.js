@@ -118,7 +118,7 @@ $(document).ready(function () {
       for (let i = 0; i < fiveDayrep.list.length; i++) {
         if (i % 8 === 0) {
           let tRow = $("<tr>");
-          let dateStamp = new Date(fiveDayrep.list[i].dt * 1000)
+          let dateStamp = new Date(fiveDayrep.list[i].dt * 1000);
           fiveDayDate = $("<td>" + dateStamp + "<td>");
           fiveDayTemp = $(
             "<td>" +
