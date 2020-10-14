@@ -8,7 +8,7 @@ $(document).ready(function () {
   let weatherBlockEl = $("#weatherBlock");
   let windEl = $("#wind");
   let searchCityEl = $("#searchCity");
-  
+
   let timeNow = moment().format("lll");
   let weatherHistory = JSON.parse(localStorage.getItem("weatherHistory")) || [];
 
@@ -42,7 +42,6 @@ $(document).ready(function () {
     return queryURL;
   }
   function buildQueryURL5(queryParams) {
-    
     let apiKeyEl = "&appid=0c4095be8ee8948edd8333313900b9cb";
 
     let queryURL5 =
@@ -62,14 +61,14 @@ $(document).ready(function () {
       console.log(results);
       let latEl = results.coord.lat;
       let lonEl = results.coord.lon;
-      let apiKeyEl = "0c4095be8ee8948edd8333313900b9cb"
+      let apiKeyEl = "0c4095be8ee8948edd8333313900b9cb";
       let queryURLuv =
-  "http://api.openweathermap.org/data/2.5/uvi?lat=" +
-  latEl +
-  "&lon=" +
-  lonEl +
-  "&appid=" +
-  apiKeyEl;
+        "http://api.openweathermap.org/data/2.5/uvi?lat=" +
+        latEl +
+        "&lon=" +
+        lonEl +
+        "&appid=" +
+        apiKeyEl;
       console.log(latEl, lonEl);
       console.log(queryURLuv);
 
@@ -90,12 +89,10 @@ $(document).ready(function () {
         uvEl.text(" UV Index: " + responseUV.value);
       });
       console.log(uvEl);
-      
     });
     function convertKtoF(tempInKelvin) {
       return (Math.floor(tempInKelvin - 273.15) * 9) / 5 + 32;
-    };
-
+    }
 
     let queryURL5 = buildQueryURL5(queryParams);
 
@@ -121,7 +118,8 @@ $(document).ready(function () {
       for (let i = 0; i < fiveDayrep.list.length; i++) {
         if (i % 8 === 0) {
           let tRow = $("<tr>");
-          fiveDayDate = $("<td>" + fiveDayrep.list[i].dt + "<td>");
+          let dateStamp = new Date(fiveDayrep.list[i].dt * 1000)
+          fiveDayDate = $("<td>" + dateStamp + "<td>");
           fiveDayTemp = $(
             "<td>" +
               convertKtoF(parseFloat(fiveDayrep.list[i].main.temp)) +
@@ -138,10 +136,8 @@ $(document).ready(function () {
           $("tbody").append(tRow);
         }
       }
-
-      
     });
-  };
+  }
   $("#searchCity").on("click", function (event) {
     event.preventDefault();
     let queryParams = $("#citySearch").val().trim();
@@ -152,15 +148,12 @@ $(document).ready(function () {
     event.preventDefault();
     console.log($(this).text());
     let queryParams = $(this).text();
-  
+
     handleSearch(queryParams);
   });
   dateEl.append(timeNow);
   renderSavedbuttons();
 });
-
-
-
 
 // Enter city and click search
 // City weather populates below
