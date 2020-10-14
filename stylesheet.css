@@ -1,0 +1,35 @@
+body {
+    box-sizing: border-box;
+    background-image: url(img/background.body.jpg);
+    font-family: 'Fira Sans Condensed', sans-serif;
+}
+
+.tempbox{
+    background-color: white;
+    margin-top: 30px;
+    width: auto;
+    
+}
+
+.temp5day{
+    float: left;
+}
+
+#date{
+    text-align: right;
+
+}
+
+table{
+
+    margin-top: 20px;
+}
+i{
+    font-size: 36px;
+}
+
+nav{
+    text-align: center;
+    background-color: transparent;
+}
+
