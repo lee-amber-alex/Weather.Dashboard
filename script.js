@@ -4,15 +4,14 @@ $(document).ready(function () {
   let tempEl = $("#temp");
   let humidityEl = $("#humidity");
   let uvEl = $("#UV");
-  let iconEl = $("#icon");
-  let weatherBlockEl = $("#weatherBlock");
   let windEl = $("#wind");
-  let searchCityEl = $("#searchCity");
+  let iconEl = $("#icon");
 
   let timeNow = moment().format("lll");
   let weatherHistory = JSON.parse(localStorage.getItem("weatherHistory")) || [];
 
   function renderSavedbuttons() {
+    iconEl.empty();
     $("#saved-search").empty();
     let filteredHistory = new Set(weatherHistory);
     filteredHistory.forEach(function (cityName, i) {
@@ -59,6 +58,11 @@ $(document).ready(function () {
     }).then(function (response) {
       const results = response;
       console.log(results);
+      
+      let weatherImg = $("<img>").attr(
+        "src",
+        "http://openweathermap.org/img/w/" + results.weather[0].icon + ".png"
+      );
       let latEl = results.coord.lat;
       let lonEl = results.coord.lon;
       let apiKeyEl = "0c4095be8ee8948edd8333313900b9cb";
@@ -79,7 +83,7 @@ $(document).ready(function () {
       );
       humidityEl.text(" Humidity: " + results.main.humidity + "%");
       windEl.text(" Windspeed: " + results.wind.speed + "m/s");
-      // UV function here__________
+      iconEl.append(weatherImg);
 
       $.ajax({
         url: queryURLuv,
@@ -108,19 +112,19 @@ $(document).ready(function () {
       method: "GET",
     }).then(function (response) {
       let fiveDayrep = response;
+      console.log(fiveDayrep);
       $("tbody").empty();
+      $("<img>").empty();
       fiveDaytempTiDay = $("<th>" + "Date" + "<th>");
       fiveDaytempTiTemp = $("<th>" + "Temperature" + "<th>");
       fiveDaytempTHum = $("<th>" + "Humidity" + "<th>");
       fiveDaytempTWind = $("<th>" + "Windspeed" + "<th>");
-      
 
       $("tbody").append(
         fiveDaytempTiDay,
         fiveDaytempTiTemp,
         fiveDaytempTHum,
-        fiveDaytempTWind,
-        
+        fiveDaytempTWind
       );
       for (let i = 0; i < fiveDayrep.list.length; i++) {
         if (i % 8 === 0) {
@@ -139,7 +143,13 @@ $(document).ready(function () {
           fiveDayWind = $(
             "<td>" + fiveDayrep.list[i].wind.speed + "m/s" + "<td>"
           );
-          tRow.append(fiveDayDate, fiveDayTemp, fiveDayHum, fiveDayWind);
+          fiveDayImg = $("<img>").attr(
+            "src",
+            "http://openweathermap.org/img/w/" +
+            fiveDayrep.list[i].weather[0].icon +
+              ".png"
+          );
+          tRow.append(fiveDayDate, fiveDayTemp, fiveDayHum, fiveDayWind, fiveDayImg);
           $("tbody").append(tRow);
         }
       }
