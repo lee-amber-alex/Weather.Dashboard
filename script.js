@@ -86,7 +86,14 @@ $(document).ready(function () {
         method: "GET",
       }).then(function (responseUV) {
         console.log(responseUV);
+
         uvEl.text(" UV Index: " + responseUV.value);
+        // if (responseUV.value < 2) {
+        //   responseUV.value.css("color", "green");
+        // }
+        // if ((responseUV.value > 2 && responseUV.value, 5)) {
+        //   responseUV.value.css("color", "yellow");
+        // }
       });
       console.log(uvEl);
     });
@@ -106,14 +113,14 @@ $(document).ready(function () {
       fiveDaytempTiTemp = $("<th>" + "Temperature" + "<th>");
       fiveDaytempTHum = $("<th>" + "Humidity" + "<th>");
       fiveDaytempTWind = $("<th>" + "Windspeed" + "<th>");
-      fiveDaytempTUV = $("<th>" + "UV" + "<th>");
+      
 
       $("tbody").append(
         fiveDaytempTiDay,
         fiveDaytempTiTemp,
         fiveDaytempTHum,
         fiveDaytempTWind,
-        fiveDaytempTUV
+        
       );
       for (let i = 0; i < fiveDayrep.list.length; i++) {
         if (i % 8 === 0) {
