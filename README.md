@@ -18,9 +18,11 @@ Access the Weather Dashboard Repository [here.](https://github.com/lee-amber-ale
 
 ### City Search:  
 
-![City Search.](screenshots/search1.1.png)   
+![City Search.](screenshots/wd2.png)   
 
-![City Search.](screenshots/search2.1.png)  
+![City Search.](screenshots/wd3.png)  
+
+![City Search.](screenshots/wd4.png) 
 
 ### Saved Search:  
 
